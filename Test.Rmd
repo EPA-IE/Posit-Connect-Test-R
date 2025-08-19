@@ -1,5 +1,5 @@
 ---
-title: "Test-1"
+title: "Test"
 author: "Dana Aspel"
 date: "2025-08-19"
 output: html_document
@@ -12,21 +12,39 @@ This app uses:
 -   **`shinyAppDir()`** --- a function from the shiny package
 -   **`system.file()`** --- a base R function
 
-Packages and dependcies:
+Packages and dependencies:
 
--   **`shiny`** (explicitly used)
-
+-   **`shiny`** (successfully used)
+-   **`dplyr`** (successfully used)
+-   **`tidyr`** (successfully used)
+-   **`data.table`** (successfully used)
 -   **`base R`** (for everything else)
 
 ```{r setup, include=FALSE}
 library(shiny)
+library(dplyr) 
+library(tidyr) 
+library(data.table)
+library(plotly)
+
 ```
 
 This R Markdown document is made interactive using Shiny. This uses the dataset Faithful, which contains a record of Old Faithful geyser, Yellowstone, eruptions.
 
+## Data Prep
+
+The dataset is first filtered to include only geyser eruptions longer than three minutes. These durations are then rounded to the nearest half-minute to simplify grouping. The number of occurrences for each rounded duration is counted, and the results are reshaped into a wide format for easier comparison.
+
+```{r data_summary, echo=FALSE}
+
+output$summaryTable <- renderTable({ faithful %>% filter(eruptions > 3) %>%
+mutate(rounded = round(eruptions * 2) / 2) %>% count(rounded) %>% pivot_wider(names_from = rounded, values_from = n, values_fill = 0) %>% as.data.table() })
+tableOutput("summaryTable")
+```
+
 ## Eruptions
 
-Old Faithful geyser eruption durations.
+Old Faithful geyser eruption duration.
 
 ```{r eruptions, echo=FALSE}
 inputPanel(
@@ -59,12 +77,27 @@ shinyAppDir(
 )
 ```
 
-In all of R code chunks above the `echo = FALSE` attribute is used. This is to prevent the R code within the chunk from rendering in the document alongside the Shiny components.
+This plot uses the \`plotly\` package to create an interactive histogram of geyser eruption durations. Users can zoom, pan, and hover to explore the data.
+
+```{r plotly_histogram, echo=FALSE}
+## Interactive Histogram (Plotly)
+
+output$plotlyHist <- renderPlotly({
+  plot_ly(x = ~faithful$eruptions, type = "histogram",
+          nbinsx = as.numeric(input$n_breaks)) %>%
+    layout(title = "Interactive Geyser Eruption Histogram",
+           xaxis = list(title = "Duration (minutes)"),
+           yaxis = list(title = "Count"))
+})
+
+plotlyOutput("plotlyHist")
+
+```
 
 ## Renv dependencies
 
 | Source                                                           | Package   | Require Version | Dev   |
-|-----------------------------|---------------|---------------|---------------|
+|-------------------------|----------------|----------------|----------------|
 | C:/Users/aspeld/Repos/Posit-Test/Posit-Connect-Test-R/Test-1.Rmd | rmarkdown |                 | FALSE |
 | C:/Users/aspeld/Repos/Posit-Test/Posit-Connect-Test-R/Test-1.Rmd | shiny     |                 | FALSE |
 | C:/Users/aspeld/Repos/Posit-Test/Posit-Connect-Test-R/Test-1.Rmd | shiny     |                 | FALSE |
