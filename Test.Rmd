@@ -20,16 +20,21 @@ Packages and dependencies:
 -   **`tidyr`**
 -   **`data.table`**
 -   **`lattice`**
--   **`forecast`**
--   
 
-```{r setup, include=FALSE}
+Other working packages:
+
+| sf | leaflet     | DT | Col4 | Col5 | Col6 |
+|------|----------|------|------|------|------|
+| sf   | leaflet  | DT   |      |      |      |
+|      |          |      |      |      |      |
+
+```{lude=FALSE}
 library(shiny)
 library(dplyr) 
 library(tidyr) 
 library(data.table)
 library(lattice)
-# library(forecast)
+library(sf)  
 ```
 
 This R Markdown document is made interactive using Shiny. This uses the dataset Faithful, which contains a record of Old Faithful geyser, Yellowstone, eruptions.
@@ -99,10 +104,16 @@ plotOutput("latticePlot")
 
 ## Failed dependencies
 
-| Package  | Sub-Dependency | Error Code    | Req. Version |
-|----------|----------------|---------------|--------------|
-| plotly   | MASS           | exit status 1 | R \>= 4.4.0  |
-| forecast | MASS           | exit status 1 | R \>= 4.4.0  |
-| ggplot2  | MASS           | exit status 1 | R \>= 4.4.0  |
-| car      | MASS           | exit status 1 | R \>= 4.4.0  |
-| caret    | MASS           | exit status 1 | R \>= 4.4.0  |
+| Package   | Sub-Dependency | Error Code    | Req. Version |
+|-----------|----------------|---------------|--------------|
+| plotly    | MASS           | exit status 1 | R \>= 4.4.0  |
+| forecast  | MASS           | exit status 1 | R \>= 4.4.0  |
+| ggplot2   | MASS           | exit status 1 | R \>= 4.4.0  |
+| car       | MASS           | exit status 1 | R \>= 4.4.0  |
+| caret     | MASS           | exit status 1 | R \>= 4.4.0  |
+| EnvStats  | MASS           | exit status 1 | R \>= 4.4.0  |
+| tidyverse | MASS           | exit status 1 | R \>= 4.4.0  |
+| forecast  | MASS           | exit status 1 | R \>= 4.4.0  |
+| ggplot2   | MASS           | exit status 1 | R \>= 4.4.0  |
+| car       | MASS           | exit status 1 | R \>= 4.4.0  |
+| caret     | MASS           | exit status 1 | R \>= 4.4.0  |
