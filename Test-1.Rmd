@@ -1,0 +1,70 @@
+---
+title: "Test-1"
+author: "Dana Aspel"
+date: "2025-08-19"
+output: html_document
+runtime: shiny
+---
+
+This app uses:
+
+-   **`faithful`** --- a built-in dataset in base R (no package needed)
+-   **`shinyAppDir()`** --- a function from the shiny package
+-   **`system.file()`** --- a base R function
+
+Packages and dependcies:
+
+-   **`shiny`** (explicitly used)
+
+-   **`base R`** (for everything else)
+
+```{r setup, include=FALSE}
+library(shiny)
+```
+
+This R Markdown document is made interactive using Shiny. This uses the dataset Faithful, which contains a record of Old Faithful geyser, Yellowstone, eruptions.
+
+## Eruptions
+
+Old Faithful geyser eruption durations.
+
+```{r eruptions, echo=FALSE}
+inputPanel(
+  selectInput("n_breaks", label = "Number of bins:",
+              choices = c(10, 20, 35, 50), selected = 20),
+  
+  sliderInput("bw_adjust", label = "Bandwidth adjustment:",
+              min = 0.2, max = 2, value = 1, step = 0.2)
+)
+
+renderPlot({
+  hist(faithful$eruptions, probability = TRUE, breaks = as.numeric(input$n_breaks),
+       xlab = "Duration (minutes)", main = "Geyser eruption duration")
+  
+  dens <- density(faithful$eruptions, adjust = input$bw_adjust)
+  lines(dens, col = "blue")
+})
+```
+
+## Statistical Application
+
+This uses the system file 06_tabsets to create a Shiny application.
+
+```{r tabsets, echo=FALSE}
+shinyAppDir(
+  system.file("examples/06_tabsets", package = "shiny"),
+  options = list(
+    width = "100%", height = 550
+  )
+)
+```
+
+In all of R code chunks above the `echo = FALSE` attribute is used. This is to prevent the R code within the chunk from rendering in the document alongside the Shiny components.
+
+## Renv dependencies
+
+| Source                                                           | Package   | Require Version | Dev   |
+|-----------------------------|---------------|---------------|---------------|
+| C:/Users/aspeld/Repos/Posit-Test/Posit-Connect-Test-R/Test-1.Rmd | rmarkdown |                 | FALSE |
+| C:/Users/aspeld/Repos/Posit-Test/Posit-Connect-Test-R/Test-1.Rmd | shiny     |                 | FALSE |
+| C:/Users/aspeld/Repos/Posit-Test/Posit-Connect-Test-R/Test-1.Rmd | shiny     |                 | FALSE |
