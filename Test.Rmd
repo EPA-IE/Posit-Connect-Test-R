@@ -14,18 +14,19 @@ This app uses:
 
 Packages and dependencies:
 
--   **`shiny`** (successfully used)
--   **`dplyr`** (successfully used)
--   **`tidyr`** (successfully used)
--   **`data.table`** (successfully used)
 -   **`base R`** (for everything else)
+-   **`shiny`**
+-   **`dplyr`**
+-   **`tidyr`**
+-   **`data.table`**
+-   **`lattice`**
 
 ```{r setup, include=FALSE}
 library(shiny)
 library(dplyr) 
 library(tidyr) 
 library(data.table)
-library(plotly)
+library(lattice)
 
 ```
 
@@ -77,27 +78,25 @@ shinyAppDir(
 )
 ```
 
-This plot uses the \`plotly\` package to create an interactive histogram of geyser eruption durations. Users can zoom, pan, and hover to explore the data.
+## Eruption vs. Waiting Time (Lattice)
 
-```{r plotly_histogram, echo=FALSE}
-## Interactive Histogram (Plotly)
+This plot uses the \`lattice\` package to show the relationship between eruption duration and waiting time between eruptions.
 
-output$plotlyHist <- renderPlotly({
-  plot_ly(x = ~faithful$eruptions, type = "histogram",
-          nbinsx = as.numeric(input$n_breaks)) %>%
-    layout(title = "Interactive Geyser Eruption Histogram",
-           xaxis = list(title = "Duration (minutes)"),
-           yaxis = list(title = "Count"))
+```{r lattice_plot, echo=FALSE}
+output$latticePlot <- renderPlot({
+  xyplot(waiting ~ eruptions, data = faithful,
+         xlab = "Eruption Duration (minutes)",
+         ylab = "Waiting Time (minutes)",
+         main = "Old Faithful Eruption vs. Waiting Time")
 })
 
-plotlyOutput("plotlyHist")
-
+plotOutput("latticePlot")
 ```
 
-## Renv dependencies
+## Failed dependencies
 
-| Source                                                           | Package   | Require Version | Dev   |
-|-------------------------|----------------|----------------|----------------|
-| C:/Users/aspeld/Repos/Posit-Test/Posit-Connect-Test-R/Test-1.Rmd | rmarkdown |                 | FALSE |
-| C:/Users/aspeld/Repos/Posit-Test/Posit-Connect-Test-R/Test-1.Rmd | shiny     |                 | FALSE |
-| C:/Users/aspeld/Repos/Posit-Test/Posit-Connect-Test-R/Test-1.Rmd | shiny     |                 | FALSE |
+| Package | Sub-Dependency | Error Code    | Req. Version |
+|---------|----------------|---------------|--------------|
+| plotly  | MASS           | exit status 1 | R \>= 4.4.0  |
+|         |                |               |              |
+|         |                |               |              |
