@@ -50,7 +50,7 @@ library(dplyr)
 library(tidyr) 
 library(data.table)
 library(lattice)
-#library(plotly)
+library(plotly)
 ```
 
 This R Markdown document is made interactive using Shiny. This uses the dataset Faithful, which contains a record of Old Faithful geyser, Yellowstone, eruptions.
@@ -116,13 +116,13 @@ output$latticePlot <- renderPlot({
 plotOutput("latticePlot")
 ```
 
-## Plotly for Interactive Plots (Inactive)
+## Plotly for Interactive Plots 
 
 This plot uses the \`plotly\` package to create an interactive histogram of geyser eruption durations. Users can zoom, pan, and hover to explore the data.
 
 This has been disabled due to breaking of the app in Posit Connect. Requires MASS install.
 
-```{r plotly_histogram, eval=FALSE, include=FALSE}
+```{r plotly_histogram, echo=FALSE}
 
 output$plotlyHist <- renderPlotly({
   plot_ly(x = ~faithful$eruptions, type = "histogram",
