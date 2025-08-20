@@ -12,7 +12,9 @@ This app uses:
 -   **`shinyAppDir()`** --- a function from the shiny package
 -   **`system.file()`** --- a base R function
 
-Packages and dependencies:
+## Packages and dependencies
+
+List of packages and dependencies used in this Rmd:
 
 -   **`base R`** (for everything else)
 -   **`shiny`**
@@ -23,18 +25,31 @@ Packages and dependencies:
 
 Other working packages:
 
-| sf | leaflet     | DT | Col4 | Col5 | Col6 |
-|------|----------|------|------|------|------|
-| sf   | leaflet  | DT   |      |      |      |
-|      |          |      |      |      |      |
+|         |                |          |         |          |         |
+|---------|----------------|----------|---------|----------|---------|
+| stringi | shinydashboard | jsonlite | stringr | httr     | shinyjs |
+| .sf     | leaflet        | DT       | readxl  | openxlsx |         |
 
-```{lude=FALSE}
+### Failed dependencies
+
+| Package   | Sub-Dependency | Error Code    | Req. Version |
+|-----------|----------------|---------------|--------------|
+| plotly    | MASS           | exit status 1 | R \>= 4.4.0  |
+| forecast  | MASS           | exit status 1 | R \>= 4.4.0  |
+| ggplot2   | MASS           | exit status 1 | R \>= 4.4.0  |
+| car       | MASS           | exit status 1 | R \>= 4.4.0  |
+| caret     | MASS           | exit status 1 | R \>= 4.4.0  |
+| EnvStats  | MASS           | exit status 1 | R \>= 4.4.0  |
+| tidyverse | MASS           | exit status 1 | R \>= 4.4.0  |
+| lubridate | MASS           | exit status 1 | R \>= 4.4.0  |
+| tidytext  | Matrix         | exit status 1 | R \>= 4.4.0  |
+
+```{r setup, include=FALSE}
 library(shiny)
 library(dplyr) 
 library(tidyr) 
 library(data.table)
 library(lattice)
-library(sf)  
 ```
 
 This R Markdown document is made interactive using Shiny. This uses the dataset Faithful, which contains a record of Old Faithful geyser, Yellowstone, eruptions.
@@ -100,20 +115,4 @@ output$latticePlot <- renderPlot({
 plotOutput("latticePlot")
 ```
 
-## Forecasting Section
-
-## Failed dependencies
-
-| Package   | Sub-Dependency | Error Code    | Req. Version |
-|-----------|----------------|---------------|--------------|
-| plotly    | MASS           | exit status 1 | R \>= 4.4.0  |
-| forecast  | MASS           | exit status 1 | R \>= 4.4.0  |
-| ggplot2   | MASS           | exit status 1 | R \>= 4.4.0  |
-| car       | MASS           | exit status 1 | R \>= 4.4.0  |
-| caret     | MASS           | exit status 1 | R \>= 4.4.0  |
-| EnvStats  | MASS           | exit status 1 | R \>= 4.4.0  |
-| tidyverse | MASS           | exit status 1 | R \>= 4.4.0  |
-| forecast  | MASS           | exit status 1 | R \>= 4.4.0  |
-| ggplot2   | MASS           | exit status 1 | R \>= 4.4.0  |
-| car       | MASS           | exit status 1 | R \>= 4.4.0  |
-| caret     | MASS           | exit status 1 | R \>= 4.4.0  |
+## 
